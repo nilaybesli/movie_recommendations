@@ -12,15 +12,8 @@ import pandas as pd
 app = Flask(__name__) 
 api = Api(app)
 
-# @app.route("/recommend") 
-# def hello(): # Bir fonksiyon oluşturduk.
-#         recommended_movies = recommend_by_model(SVD, 18, ratings_data, ratings, main_data=data)
-#         return jsonify({'recommended_movies': recommended_movies.to_json(orient='records')})
-
-@app.route('/recommendations/<int:user_id>')
+ @app.route('/recommendations/<int:user_id>')
 def recommend_by_model(user_id):
-    # Eski fonksiyonun kodlarını buraya taşıyın
-    # rating_data, all_ratings, main_data gibi değişkenleri global olarak tanımladıysanız, fonksiyon içinde tekrar tanımlamanız gerekmez.
     final_recc = recommend_by_model(KNNBasic, user_id, ratings_data, ratings, main_data=data)
     return final_recc.to_json(orient='records')
 
