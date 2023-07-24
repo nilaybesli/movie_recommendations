@@ -17,7 +17,7 @@ for algorithm in [SVD(), KNNBasic(), KNNWithMeans()]:
     # Perform cross validation
     results = cross_validate(algorithm, ratings_data, measures=['RMSE'], cv=3, verbose=False)
     
-    # Get results & append algorithm name
+    # Get results append algorithm name
     tmp = pd.DataFrame.from_dict(results).mean(axis=0)
     tmp = pd.concat([tmp, pd.Series([str(algorithm).split(' ')[0].split('.')[-1]], index=['Algorithm'])], axis=0)
     benchmark.append(tmp)
@@ -27,6 +27,6 @@ surprise_results = pd.DataFrame(benchmark).reset_index().sort_values('test_rmse'
 print(surprise_results)
 # svd is best because it gives the least rmse on test data
 
-# generate recommendations based on the estimated ratings of a particular user (userId = 435)
+# generate recommendations based on the estimated ratings of a particular user
 print(recommend_by_model(SVD(), 180, ratings_data, ratings, data))
 
